@@ -1,6 +1,6 @@
 # Proyecto Integrador Django 
 
-## Sistema Integrador de Gestión Academica 
+## Sistema Integrado de Gestión Academica 
 
 ### Grupo 18
 Cesar Machado	 cesarmachado69@gmail.com
