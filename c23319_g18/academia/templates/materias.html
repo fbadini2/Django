@@ -1,0 +1,26 @@
+{% extends "layout.html" %} {% load static %} {% block title %} SIGA - Materias
+{% endblock %} {% block body %}
+
+    <div class="container-fluid py-5">
+      <h2 class="display-5 fw-bold">Materias</h2>
+      <table class="table table-striped table-bordered bg-white table-sm">
+        <thead style="text-align: center">
+          <td style="font-weight: bold">ID</td>
+          <td style="font-weight: bold">Materia</td>
+          <td style="font-weight: bold">Acción</td>
+        </thead>
+        <tbody>
+        {% for item in items %}
+  
+          <tr>
+            <td style="text-align: center;">{{ item.id_materia }}</td>
+            <td style="text-transform: uppercase">{{ item.materia }}</td>
+            <td style="text-align: center">
+              <a href="#" class="btn btn-outline-info" title="Modificar Materia"><i class="fa-regular fa-pen-to-square"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
