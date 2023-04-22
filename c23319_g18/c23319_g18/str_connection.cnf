@@ -1,0 +1,6 @@
+[client]
+database = academia
+user = root
+password = 
+host = localhost
+default-character-set = utf8

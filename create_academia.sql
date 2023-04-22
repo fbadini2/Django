@@ -1,24 +1,19 @@
-/* Ejecutar en orden desde la consola de MySQL 
+/* Ejecutar en orden desde la consola de MySQL
 o desde MySQL Workbench */
-
 
 /* Crea la BD */
 CREATE DATABASE academia;
 
-
 /* Crea la tabla auxiliar provincia */
-
-use academia;
-CREATE TABLE `provincia` (
-  `id_provincia` int NOT NULL AUTO_INCREMENT,
-  `desc_provincia` varchar(35) DEFAULT NULL,
-  PRIMARY KEY (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+USE academia;
+CREATE TABLE provincia (
+  id_provincia int NOT NULL AUTO_INCREMENT,
+  desc_provincia varchar(35) DEFAULT NULL,
+  PRIMARY KEY (id_provincia)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /* Insertar las provincias en la tabla provincia */
-
-INSERT INTO `provincia` VALUES (1,''),(2,'Buenos Aires'),(3,'Catamarca'),(4,'Ciudad Autónoma de Buenos Aires'),(5,'Chaco'),(6,'Chubut'),(7,'Córdoba'),(8,'Corrientes'),(9,'Entre Rios'),(10,'Formosa'),(11,'Jujuy'),(12,'La Pampa'),(13,'La Rioja'),(14,'Mendoza'),(15,'Misiones'),(16,'Neuquén'),(17,'Río Negro'),(18,'Salta'),(19,'San Juan'),(20,'San Luis'),(21,'Santa Cruz'),(22,'Santa Fe'),(23,'Santiago del Estero'),(24,'Tierra del Fuego'),(25,'Tucumán');
-
+INSERT INTO provincia VALUES (1,'Sin provincia'),(2,'Buenos Aires'),(3,'Catamarca'),(4,'Ciudad Autónoma de Buenos Aires'),(5,'Chaco'),(6,'Chubut'),(7,'Córdoba'),(8,'Corrientes'),(9,'Entre Rios'),(10,'Formosa'),(11,'Jujuy'),(12,'La Pampa'),(13,'La Rioja'),(14,'Mendoza'),(15,'Misiones'),(16,'Neuquén'),(17,'Río Negro'),(18,'Salta'),(19,'San Juan'),(20,'San Luis'),(21,'Santa Cruz'),(22,'Santa Fe'),(23,'Santiago del Estero'),(24,'Tierra del Fuego'),(25,'Tucumán');
 /* Crea la tabla auxiliar pais */
 
 use academia;
@@ -31,7 +26,7 @@ CREATE TABLE `pais` (
   `bandera` blob,
   `numorden` int DEFAULT NULL,
   PRIMARY KEY (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 /* Inserta los paises en la tabla pais */
@@ -313,7 +308,7 @@ CREATE TABLE `alumno` (
   KEY `id_pais` (`id_pais`),
   CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`),
   CONSTRAINT `alumno_ibfk_2` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 /* Crea la tabla profesor */
@@ -339,7 +334,7 @@ CREATE TABLE `profesor` (
   KEY `id_pais` (`id_pais`),
   CONSTRAINT `profesor_ibfk_1` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`),
   CONSTRAINT `profesor_ibfk_2` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 /* Crea la tabla materia */
@@ -349,7 +344,7 @@ CREATE TABLE `materia` (
   `id_materia` int NOT NULL AUTO_INCREMENT,
   `materia` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`id_materia`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 
@@ -368,7 +363,7 @@ CREATE TABLE `clase` (
   KEY `id_profesor` (`id_profesor`),
   CONSTRAINT `clase_ibfk_1` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id_materia`),
   CONSTRAINT `clase_ibfk_2` FOREIGN KEY (`id_profesor`) REFERENCES `profesor` (`id_profesor`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /* Crea la tabla alumno_clase */
 
@@ -384,4 +379,4 @@ CREATE TABLE `alumno_clase` (
   KEY `id_clase` (`id_clase`),
   CONSTRAINT `alumno_clase_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`),
   CONSTRAINT `alumno_clase_ibfk_2` FOREIGN KEY (`id_clase`) REFERENCES `clase` (`id_clase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
