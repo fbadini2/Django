@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
     path('aulas', views.aulas, name='aulas'),
     path('materias', views.materias, name='materias'),
     path('calificaciones', views.calificaciones, name='calificaciones'),
+
+    #path('gestion_usuarios/', include('gestion_usuarios.urls'), name='gestion_usuarios'), # redirección a la app gestion_usuarios
 ]

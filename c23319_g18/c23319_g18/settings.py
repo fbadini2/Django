@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+from dotenv import load_dotenv
+from django.urls import reverse_lazy
 
 env = environ.Env()
 environ.Env.read_env()
@@ -43,7 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'academia',
-    'users'
+    'gestion_usuarios',
+    'email_reseteo',
+    # 'login2',
+    # 'users',
+    # 'registro_usuarios',
+    # 'registro_app',
+    
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -61,7 +71,7 @@ ROOT_URLCONF = 'c23319_g18.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,9 +158,33 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#esto se genera en producción y es la que deberemos 
+#crear y django ira a buscar ahi 
+#python manage.py collectstatic
+STATIC_ROOT = BASE_DIR / 'static_root'
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'academia/static'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = 'academia:index'
+LOGOUT_REDIRECT_URL = '/'
+
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Configuración de SMTP
+load_dotenv()
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'#smtp.mail.yahoo.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # aqui deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # aquí deberás agregar la contraseña de tu cuenta de Gmail o, si usas la autenticación de aplicaciones, la clave generada para tu aplicación
+
+# Configuración del remitente predeterminado
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') # aquí deberás agregar la dirección de correo electrónico de tu cuenta de Gmail

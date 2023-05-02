@@ -13,11 +13,10 @@
 
     <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" />
 </head>
-
-<body>
-    <header>
+<header></header>
+    {% comment %} <header>
         <!-- place navbar here -->
-        {% comment %} <nav class="navbar navbar-expand navbar-light bg-light">
+        <nav class="navbar navbar-expand navbar-light bg-light">
             <ul class="nav navbar-nav">
                 <a class="navbar-brand mt-2 mt-lg-0" href="/">
                     <i class="fa-solid fa-graduation-cap"></i>
@@ -40,30 +39,11 @@
                     <a class="nav-link" href="{% url 'index' %}">Nosotros</a>
                 </li>
             </ul>
-        </nav> {% endcomment %}
-    </header>
-    <main>
-        <p></p>
-        <p></p>
-        <p></p>
-        <div class="container">
-            {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{message.tags}}">
-                       {{message}}
-                     </div>
-                   {% endfor %}
-            {% endif %}
-        
-         {%block content %}
-         {%endblock content%}
-        </div>
-    </main>
-
-
+        </nav>
+    </header> {% endcomment %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" >
                 {% block body %} {% endblock %}
             </div>
         </div>
