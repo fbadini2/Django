@@ -15,8 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from gestion_usuarios.views import LoginView
+from .views import home
 
 urlpatterns = [
-    path("academia/", include("academia.urls")),
-    path('admin/', admin.site.urls),
+    # path('',include('login2.urls'),name='index'),
+    # #path('',include('users.urls')),
+    # path('', include('registro_app.urls')),
+    # path('', include('registro_usuarios.urls')),
+    path('', home, name='home'),
+    path('gestion_usuarios/login/', LoginView.as_view(), name='login'),
+    path('gestion_usuarios/', include('gestion_usuarios.urls'),name='gestion_usuarios'),
+    path('email_reseteo/', include('email_reseteo.urls'),name='email_reseteo'),
+    path("academia/", include("academia.urls"),name='academia'),
+    path('admin/', admin.site.urls,name='admin'),
+   
+    
 ]
