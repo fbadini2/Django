@@ -1,0 +1,16 @@
+{% extends 'layout2.html' %}
+
+{% block body %}
+  <h2>Correo electrónico enviado</h2>
+  <p>Se ha enviado un correo electrónico a la dirección indicada. Por favor, sigue las instrucciones para resetear tu contraseña.</p>
+  <p>Serás redirigido automáticamente en 3 segundos. Si no eres redirigido, haz clic aquí.</p>
+  <a href="{% url 'gestion_usuarios:login' %}" class="btn btn-primary">Ir al inicio de sesión</a>
+
+  <script type="text/javascript">
+    setTimeout(function() {
+      window.location.href = "{% url 'gestion_usuarios:login' %}";
+    }, 3000); // 3000 milliseconds = 3 seconds
+  </script>
+{% endblock %}
+
+

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'academia',
     'gestion_usuarios',
-    'email_reseteo',
+    'email_reseteo_2',
+    #'email_reseteo',
     # 'login2',
     # 'users',
     # 'registro_usuarios',
@@ -179,7 +180,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Configuración de SMTP
 load_dotenv()
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'#smtp.mail.yahoo.com'
+EMAIL_HOST = 'smtp.gmail.com' #smtp.mail.yahoo.com'#'smtp-relay.sendinblue.com'#
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = True

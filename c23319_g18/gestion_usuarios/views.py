@@ -61,13 +61,13 @@ class LogoutView(View):
 
 class CambiarPasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = CustomCambiarPasswordForm
-    success_url = reverse_lazy('gestion_usuarios/cambiar_password_done')
+    success_url = reverse_lazy('gestion_usuarios:cambiar_password_done')
     template_name = 'gestion_usuarios/cambiar_password.html'
     extra_context = {'password_form': CustomSetPasswordForm(user=None)}
 
 class CambiarPasswordDoneView(TemplateView):
     template_name = 'gestion_usuarios/cambiar_password_done.html'
-    success_url = reverse_lazy('cambiar_password_done')
+    success_url = reverse_lazy('gestion_usuarios:cambiar_password_done')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        
