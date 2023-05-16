@@ -14,15 +14,15 @@ class Alumno(models.Model):
     apellido = models.CharField(max_length=75, blank=True, null=True)
     tipo_doc = models.CharField(max_length=5)
     nro_doc = models.CharField(max_length=15)
-    foto = models.TextField(blank=True, null=True)
+    # foto = models.TextField(blank=True, null=True)
     fec_nacimiento = models.CharField(max_length=10)
-    id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia')
-    id_pais = models.ForeignKey('Pais', models.DO_NOTHING, db_column='id_pais')
-    tipo_tel = models.CharField(max_length=5)
+    # id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia', default=1)
+    # id_pais = models.ForeignKey('Pais', models.DO_NOTHING, db_column='id_pais')
+    # tipo_tel = models.CharField(max_length=5)
     nro_tel = models.CharField(max_length=75)
     correo = models.CharField(max_length=100)
-    fec_inicio = models.CharField(max_length=10)
-    activo = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # fec_inicio = models.CharField(max_length=10)
+    # activo = models.TextField(blank=True, null=True)  # This field type is a guess.
 
     class Meta:
         managed = False
@@ -67,7 +67,7 @@ class Pais(models.Model):
     iso2 = models.CharField(max_length=2, blank=True, null=True)
     iso3 = models.CharField(max_length=3, blank=True, null=True)
     isonum = models.IntegerField()
-    pais = models.CharField(max_length=75, blank=True, null=True)
+    desc_pais = models.CharField(max_length=75, blank=True, null=True)
     bandera = models.TextField(blank=True, null=True)
     numorden = models.IntegerField(blank=True, null=True)
 
@@ -82,15 +82,15 @@ class Profesor(models.Model):
     apellido = models.CharField(max_length=75, blank=True, null=True)
     tipo_doc = models.CharField(max_length=5)
     nro_doc = models.CharField(max_length=15)
-    foto = models.TextField(blank=True, null=True)
+    # foto = models.TextField(blank=True, null=True)
     fec_nacimiento = models.CharField(max_length=10)
-    id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia')
-    id_pais = models.ForeignKey(Pais, models.DO_NOTHING, db_column='id_pais')
-    tipo_tel = models.CharField(max_length=5)
+    # id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia')
+    # id_pais = models.ForeignKey(Pais, models.DO_NOTHING, db_column='id_pais')
+    # tipo_tel = models.CharField(max_length=5)
     nro_tel = models.CharField(max_length=75)
     correo = models.CharField(max_length=100)
-    fec_inicio = models.CharField(max_length=10)
-    activo = models.TextField(blank=True, null=True)  # This field type is a guess.
+    # fec_inicio = models.CharField(max_length=10)
+    # activo = models.TextField(blank=True, null=True)  # This field type is a guess.
 
     class Meta:
         managed = False

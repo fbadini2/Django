@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'academia',
-    'users'
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
@@ -91,24 +91,15 @@ WSGI_APPLICATION = 'c23319_g18.wsgi.application'
 #         'PORT': '',
 #     }
 # }
+
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'academia',
-         'USER': '',
-         'PASSWORD': '',
-         'HOST': 'localhost',
-         'PORT': '3306',
-     }
- }
-# DATABASES = {
-#       'default': {
-#           'ENGINE': 'django.db.backends.mysql',
-#           'OPTIONS': {
-#               'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
-#           }
-#       }
-#   }
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'OPTIONS': {
+              'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
+          }
+      }
+  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
