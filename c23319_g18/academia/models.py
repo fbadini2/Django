@@ -55,7 +55,7 @@ class Clase(models.Model):
 
 class Materia(models.Model):
     id_materia = models.AutoField(primary_key=True)
-    materia = models.CharField(max_length=35, blank=True, null=True)
+    materia = models.CharField(max_length=35, blank=True, null=False)
 
     class Meta:
         managed = False

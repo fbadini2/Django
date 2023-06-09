@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import Alumnoform, Profesorform
-from .models import Materia, Alumno, Pais, Profesor
+from .forms import Alumnoform, Profesorform, Materiaform, Claseform
+from .models import Materia, Alumno, Pais, Profesor, Clase
 
 
 def alumnos(request):
@@ -15,7 +15,6 @@ def alumnos(request):
             form.save()
             return redirect('/alumnos')
     return render(request, "alumnos.html", {'alumnos':alumnos, 'paises':paises, 'form':form})
-
 
 def alumnoedit(request, id):
     alumnos = Alumno.objects.all().order_by('-id_alumno')[:8]
@@ -56,11 +55,56 @@ def profesoredit(request, id):
     return render(request, "profesores.html", {'profesores':profesores, 'paises':paises, 'form':form})
 
 def aulas(request):
-    return render(request, "aulas.html")
+    items = Clase.objects.all().order_by('-id_clase')[:8]
+   
+    if request.method == 'GET':
+        form = Claseform()
+    else:
+        form = Claseform(request.POST) 
+        if form.is_valid():
+            form.save()
+            return redirect('/aulas')
+        
+    return render(request, "aulas.html", {'items':items, 'form':form})
+
+def aulasedit(request, id):
+    items = Clase.objects.all().order_by('-id_clase')[:8]
+    clase = Clase.objects.get(id_clase = id)
+    # item_profesor = Profesor.objects.select_related().get(id_profesor=clase.id_profesor.pk)
+    if request.method == 'GET':
+        form = Claseform(instance = clase)
+    else:
+        form = Claseform(request.POST, instance = clase)
+        if form.is_valid():
+            form.save()
+            return redirect('/aulas')
+    return render(request, "aulas.html", {'items':items,  'form':form})
+    
+
 
 def materias(request):
-    items = Materia.objects.all()
-    return render(request, "materias.html", {'items':items})
+    items = Materia.objects.all().order_by('-id_materia')[:8]
+    if request.method == 'GET':
+        form = Materiaform()
+    else:
+        form = Materiaform(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/materias')
+        
+    return render(request, "materias.html", {'items':items, 'form':form})
+
+def materiasedit(request, id):
+    items = Materia.objects.all().order_by('-id_materia')[:8]
+    materia = Materia.objects.get(id_materia = id)
+    if request.method == 'GET':
+        form = Materiaform(instance = materia)
+    else:
+        form = Materiaform(request.POST, instance = materia)
+        if form.is_valid():
+            form.save()
+            return redirect('/materias')
+    return render(request, "materias.html", {'items':items, 'form':form})
 
 def calificaciones(request):
     return render(request, "calificaciones.html")
@@ -70,3 +114,6 @@ def informes(request):
 
 def index(request):
     return render(request, "nosotros.html")
+
+def create(request):
+    return render(request, "create.html")
