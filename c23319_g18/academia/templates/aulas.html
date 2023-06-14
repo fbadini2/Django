@@ -1,57 +1,47 @@
 {% extends "layout.html" %} {% load static %} {% load widget_tweaks %} {% block title %} SIGA - Aulas
 {% endblock %} {% block body %}
 
-<div class="container-fluid py-5">
-  <h2 class="display-5 fw-bold">Aulas</h2>
-  <div class="container">
-    <p>
-      La gestión de espacios (físicos y virtuales) es parte fundamental de las
-      tareas diarias de la coordinación académica.
-    </p>
-    <p>
-      Se pueden crear todas las aulas necesarias y, por supuesto, asignar los
-      profesores.
-    </p>
-  </div>
+<div class="container-fluid py-2">
+  <h4 class="display-5 fw-bold"><i class="bi bi-door-open"></i> Aulas</h4>
+
   <div class="row">
     <div accion="" class="col-md-5">
-      <div class="card">
+      <div class="card bg-light border-primary">
         <div class="card-body">
           <form method="POST">
             {% csrf_token %}
+
             <div class="form-group">
-              <!-- {{form.nombre|add_class:'form-control'}} -->
               {% render_field form.id_clase class="form-control" placeholder="Id Clase" %}
             </div>
+
             <div class="form-group">
-              <!-- {{form.apellido|add_class:'form-control'}} -->
-              {% render_field form.clase class="form-control" style="text-transform: uppercase" placeholder="Nombre de la clase" %}
-            </div>  <!--'','',' ',''-->
+              {% render_field form.clase class="form-control" placeholder="Clase" %}
+            </div> 
+
             <div class="form-group">
-              <!-- {{form.apellido|add_class:'form-control'}} -->
-              {% render_field form.periodo class="form-control" style="text-transform: uppercase" placeholder="periodo" %}
+              {% render_field form.periodo class="form-control" placeholder="Periodo" %}
             </div>
+
             <div class="form-group">
-              <!-- {{form.apellido|add_class:'form-control'}} -->
-              {% render_field form.id_materia class="form-control" style="text-transform: uppercase" placeholder="Id de la materia" %}
+              {% render_field form.id_materia class="form-control" style="text-transform: bold" placeholder="Materia" %}
             </div>
+
             <div class="form-group">
-              <!-- {{form.apellido|add_class:'form-control'}} -->
-              {% render_field form.id_profesor class="form-control" style="text-transform: uppercase" placeholder="Id del profesor" %}
+              {% render_field form.id_profesor class="form-control" placeholder="Profesor" %}
             </div>
+
             <div class="form-group">
-              <!-- {{form.apellido|add_class:'form-control'}} -->
-              {% render_field form.capacidad class="form-control" style="text-transform: uppercase" placeholder="Capacidad" %}
+              {% render_field form.capacidad class="form-control" placeholder="Capacidad" %}
             </div>            
-            <!-- {{ form.as_p }} -->
+
             <div class="form-group">
               <div class="row justify-content-center">
-                <!-- <div class="col"> -->
-                  <button type="submit" class="btn btn-lg btn-outline-success"><i class="bi bi-check-circle"></i>
+                  <button type="submit" class="btn btn-lg btn-success"><i class="bi bi-check-circle"></i>
                     Guardar</button>
-                <!-- </div> -->
               </div>
             </div>
+
           </form>
         </div>
       </div>
@@ -59,27 +49,22 @@
     <div class="col-md-7">
       <table class="table table-bordered table-sm">
         <thead style="text-align: center">
-          <td style="font-weight: bold">ID</td>
           <td style="font-weight: bold">Clase</td>
           <td style="font-weight: bold">Periodo</td>
           <td style="font-weight: bold">Materia</td>
           <td style="font-weight: bold">Profesor</td>
-          <td style="font-weight: bold">Capacidad</td>                    
+          <td style="font-weight: bold">Capac.</td>                    
           <td style="font-weight: bold">Editar</td>
         </thead>
         <tbody>
         {% for item in items %}
   
           <tr>
-            <td style="text-align: center;">{{ item.id_clase }}</td>
             <td style="text-transform: uppercase">{{ item.clase }}</td>
             <td style="text-align: center;">{{ item.periodo }}</td>
-            <td style="text-transform: uppercase">{{ item.id_materia.materia }}</td>  
-            {% comment %} {%for item_prof in items_prof %}  
-            <td style="text-align: center;">{{ item_prof.nombre }}</td>
-            {%endfor%} {% endcomment %}
-            <td style="text-align: center;">{{ item.id_profesor.nombre }}</td>
-            <td style="text-transform: uppercase">{{ item.capacidad }}</td>                      
+            <td style="font-weight: bold">{{ item.id_materia.materia }}</td>  
+            <td>{{ item.id_profesor.nombre }}</td>
+            <td style="text-align: center;">{{ item.capacidad }}</td>                      
             <td style="text-align: center">
               <a href="{% url 'editau' item.id_clase %}" class="btn btn-outline-primary" title="Modificar Aula">
                 <i class="bi bi-pencil-square"></i></a>

@@ -1,13 +1,34 @@
 from django import forms
-from .models import Alumno, Profesor
+from .models import Alumno, Profesor, Materia, Clase
 
 class Alumnoform(forms.ModelForm):
     class Meta:
         model = Alumno
-        fields = ('nombre', 'apellido', 'nro_doc', 'nro_tel', 'correo', 'fec_nacimiento')
+        fields = ('nombre', 'apellido', 'nro_doc', 'nro_tel', 'correo', 'id_provincia', 'id_pais', 'fec_nacimiento', 'foto', 'fec_inicio', 'activo')
         # fields = '__all__'
 
+ 
 class Profesorform(forms.ModelForm):
     class Meta:
         model = Profesor
-        fields = ('nombre', 'apellido', 'nro_doc', 'nro_tel', 'correo', 'fec_nacimiento')
+        fields = ('nombre', 'apellido', 'nro_doc', 'nro_tel', 'correo', 'id_provincia', 'id_pais', 'fec_nacimiento', 'foto', 'fec_inicio', 'activo')
+
+
+class Materiaform(forms.ModelForm):
+    class Meta:
+        model = Materia
+        fields = ('materia', 'carrera', 'anio', 'cuatrimestre')
+        error_messages = {
+            'materia' :{
+                'required':'No te olvides de mi!'
+            }
+        }
+class Claseform(forms.ModelForm):
+    class Meta:
+        model = Clase
+        fields = ('id_clase', 'clase','periodo','id_materia','id_profesor','capacidad')
+        error_messages = {
+            'materia' :{
+                'required':'No te olvides de mi!'
+            }
+        }  

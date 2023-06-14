@@ -1,4 +1,23 @@
+
 .img-maximo {
-    max-width: 200px;
+    max-width: 100px;
     height: auto;
+}
+
+.img-perfil-alumno {
+    max-width: 100px;
+    height: auto;
+    border-color: rgb(132, 185, 27);
+    border-width: thin;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.img-perfil-profesor {
+    max-width: 100px;
+    height: auto;
+    border-color: rgb(236, 116, 46);
+    border-width: thin;
+    border-style: solid;
+    border-radius: 50%;
 }
