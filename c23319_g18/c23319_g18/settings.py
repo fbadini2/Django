@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'academia',
     'gestion_usuarios',
     'email_reseteo_2',
+    'fotos',
     #'email_reseteo',
     # 'login2',
     # 'users',
@@ -162,7 +163,11 @@ STATIC_URL = '/static/'
 #esto se genera en producción y es la que deberemos 
 #crear y django ira a buscar ahi 
 #python manage.py collectstatic
-STATIC_ROOT = BASE_DIR / 'static_root'
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+# STATIC_ROOT = BASE_DIR / 'static_root'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static/'),
+# ]
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'academia/static'))
 
 # Default primary key field type
@@ -189,3 +194,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # aquí deberás agregar 
 
 # Configuración del remitente predeterminado
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') # aquí deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
+
+
+# Ruta absoluta al directorio donde se almacenarán los archivos multimedia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL base para acceder a los archivos multimedia
+MEDIA_URL = '/media/'
+
+

@@ -18,6 +18,9 @@ from django.urls import include, path
 from gestion_usuarios.views import LoginView
 from .views import home
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     # path('',include('login2.urls'),name='index'),
@@ -31,7 +34,9 @@ urlpatterns = [
     #path('email_reseteo/', include('email_reseteo.urls'),name='email_reseteo'),
     path("academia/", include("academia.urls"),name='academia'),
     path('admin/', admin.site.urls,name='admin'),
+    path('fotos/', include('fotos.urls')),
     
    
     
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

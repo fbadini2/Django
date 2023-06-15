@@ -10,3 +10,4 @@ urlpatterns = [
     path('reset/done/', EmailPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     #path('perfil/', views.profile, name='profile'),
 ]
+

@@ -4,27 +4,12 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.crypto import get_random_string
-from .forms import EmailForm, PasswordResetForm, MySetPasswordForm
+from .forms import EmailForm, MySetPasswordForm
 from django.http import Http404
-from django.core.mail import EmailMultiAlternatives
-from django.utils.html import strip_tags
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth.views import PasswordResetCompleteView
-
-def enviar_email_reseteo_password(user_email, token, request):
-    subject = 'Reseteo de Contraseña'
-    html_message = render_to_string('email_reseteo_2/email_reseteo_password.html', {'token': token, 'user_email': user_email, 'request': request})
-    plain_message = strip_tags(html_message)
-    from_email = 'from@example.com'
-    recipient_list = [user_email]
-    send_mail(subject, plain_message, from_email, recipient_list, html_message=html_message)
-
-from django.template.loader import render_to_string
-
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
 
 def resetear_password(request):
     if request.method == 'POST':
