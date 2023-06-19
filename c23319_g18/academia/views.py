@@ -202,34 +202,29 @@ def formulario_view(request):
 
 
 
-def materiasedit(request, id):
-    items = Materia.objects.all().order_by('id_materia')[:7]
-    materia = Materia.objects.get(id_materia = id)
-    if request.method == 'GET':
-        form = Materiaform(instance = materia)
-    else:
-        form = Materiaform(request.POST, instance = materia)
-        if form.is_valid():
-            form.save()
-            return redirect('/materias')
-    return render(request, "materias.html", {'items':items, 'form':form})
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import AlumnoClase
+from .forms import AlumnoClaseForm
 
-def editar_formulario(request, registro_id):
-    registro = get_object_or_404(AlumnoClase, id=registro_id)
+def editar_formulario(request, id):
     alumnos = Alumno.objects.all()
     clases = Clase.objects.all()
+    alumno_clases = AlumnoClase.objects.all()
 
-    if request.method == 'POST':
+    registro = get_object_or_404(AlumnoClase, id=id)
+    
+    if request.method == 'GET':
+        form = AlumnoClaseForm(instance=registro)
+    else:
         form = AlumnoClaseForm(request.POST, instance=registro)
         if form.is_valid():
             form.save()
-            return redirect('/formulario')
-    else:
-        form = AlumnoClaseForm(instance=registro)
+            return redirect('formulario')
     
     context = {
         'alumnos': alumnos,
         'clases': clases,
+        'items': alumno_clases,
         'form': form
     }
     

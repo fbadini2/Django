@@ -99,9 +99,10 @@
               <td style="text-align: center">{{ item.faltas }}</td>
               <td style="text-align: center">{{ item.calificacion }}</td>
               <td style="text-align: center">
-                <a href="{% url 'editaform' registro.id %}" class="btn btn-outline-primary" title="Editar Registro">
+                <a href="{% url 'editaform' item.id %}" class="btn btn-outline-primary" title="Editar Registro">
                   <i class="bi bi-pencil-square"></i>
                 </a>
+              
               </td>
               {% comment %} <td>{{ item.id_materia }}</td> {% endcomment %}
             </tr>

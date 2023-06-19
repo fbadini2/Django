@@ -19,5 +19,5 @@ urlpatterns = [
 
     ########################################################################
      path('formulario/', views.formulario_view, name='formulario'),
-     path('editaform/<int:registro_id>', views.editar_formulario, name='editaform'),
+     path('editaform/<int:id>', views.editar_formulario, name='editaform'),
 ]  
