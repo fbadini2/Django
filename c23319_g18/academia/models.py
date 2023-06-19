@@ -22,21 +22,12 @@ class Alumno(models.Model):
     correo = models.CharField(max_length=100)
     fec_inicio = models.CharField(max_length=10)
     activo = models.BooleanField(blank=True, null=True)  # This field type is a guess.
+    clases = models.ManyToManyField('Clase', through='AlumnoClase')
     
     class Meta:
         managed = False
         db_table = 'alumno'
 
-
-class AlumnoClase(models.Model):
-    id_alumno = models.ForeignKey(Alumno, models.DO_NOTHING, db_column='id_alumno')
-    id_clase = models.ForeignKey('Clase', models.DO_NOTHING, db_column='id_clase')
-    faltas = models.IntegerField()
-    calificacion = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'alumno_clase'
 
 
 class Clase(models.Model):
@@ -46,6 +37,7 @@ class Clase(models.Model):
     id_materia = models.ForeignKey('Materia', models.DO_NOTHING, db_column='id_materia')
     id_profesor = models.ForeignKey('Profesor', models.DO_NOTHING, db_column='id_profesor')
     capacidad = models.IntegerField(blank=True, null=True)
+    alumnos = models.ManyToManyField('Alumno', through='AlumnoClase')
 
     class Meta:
         managed = False
@@ -116,3 +108,23 @@ class Provincia(models.Model):
     
     def __str__(self):
         return str(self.desc_provincia)
+
+
+#################################################################################
+
+from django.core.exceptions import ValidationError
+def validar_calificacion(value):
+    if value < 1 or value > 10:
+        raise ValidationError('La calificación debe estar entre 1 y 10.')
+
+class AlumnoClase(models.Model):
+    alumno = models.ForeignKey(Alumno, models.DO_NOTHING, db_column='id_alumno')
+    clase = models.ForeignKey(Clase, models.DO_NOTHING, db_column='id_clase')
+    #materia =  models.ForeignKey(Materia, models.DO_NOTHING, db_column='id_materia')
+    faltas = models.IntegerField()
+    calificacion = models.IntegerField(blank=True, null=True, validators=[validar_calificacion])
+
+    class Meta:
+        managed = False
+        db_table = 'alumno_clase'
+

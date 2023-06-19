@@ -32,3 +32,17 @@ class Claseform(forms.ModelForm):
                 'required':'No te olvides de mi!'
             }
         }  
+
+##########################################################3
+
+from django import forms
+from .models import Alumno, Clase, AlumnoClase
+
+class AlumnoClaseForm(forms.ModelForm):
+    alumno = forms.ModelChoiceField(queryset=Alumno.objects.all())
+    clases = forms.ModelMultipleChoiceField(queryset=Clase.objects.all(), widget=forms.CheckboxSelectMultiple)
+    faltas = forms.IntegerField()
+    calificacion = forms.IntegerField()
+    class Meta:
+        model = AlumnoClase
+        fields = ('alumno', 'clases', 'faltas', 'calificacion')

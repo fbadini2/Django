@@ -12,19 +12,14 @@
 
             <div class="form-group">
               <div class="row justify-content-center">
-                {% if form.foto.value == NULL %}
-                <img
-                  class="img-maximo"
-                  src='{% static "images/pna.jpg" %}'
-                  alt="foto del alumno"
-                />
+                {% if form.instance.foto %}
+                  <img class="img-perfil-alumno" src='{{ form.instance.foto.url }}' alt="foto del alumno">
                 {% else %}
-                {% if form.foto %}
-                <img class="img-perfil-alumno" src ='/media/{{ form.foto.value }}' alt="foto del alumno">
-                {% endif %}
+                  <img class="img-maximo" src='{% static "images/pna.jpg" %}' alt="foto del alumno">
                 {% endif %}
               </div>
             </div>
+            
             
             <div class="form-row">
               <div class="form-group col-md-5">
@@ -77,6 +72,7 @@
 
 
             {{ form.foto }}
+            
 
 
               <div class="form-group" style="padding-top: 1rem;">

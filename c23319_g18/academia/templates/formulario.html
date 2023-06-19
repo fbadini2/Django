@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}SIGA - Materias{% endblock %}
+{% block head %}<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock head %}
+{% block body %}
+<div class="container-fluid py-2">
+  <h4 class="display-5 fw-bold"><i class="bi bi-book"></i> Registro</h4>
+  <div class="row">
+    <div accion="" class="col-md-5">
+      <div class="card bg-light border-info">
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="alumno">Seleccionar alumno:</label>
+              <select name="alumno" id="alumno" class="form-control">
+                {% for alumno in alumnos %}
+                  <option value="{{ alumno.id_alumno }}">{{ alumno.nombre }} {{ alumno.apellido }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="clases">Seleccionar clases:</label>
+              <select name="clases" id="clases" class="form-control" multiple>
+                {% for clase in clases %}
+                  <option value="{{ clase.id_clase }}">{{ clase.clase }} - {{ clase.id_materia.materia }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="faltas">Faltas:</label>
+              <input type="number" name="faltas" id="faltas" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="calificacion">Calificación:</label>
+              <input type="number" name="calificacion" id="calificacion" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <div class="row justify-content-center">
+                <button type="submit" class="btn btn-lg btn-success"><i class="bi bi-check-circle"></i> Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="form-group py-2" style="float: right">
+        <form class="d-flex" action="">
+          <input type="text" class="form-control" placeholder="Buscar..." name="tags" id="tags">
+        </form>
+      </div>
+      <table class="table table-bordered table-sm">
+        <thead style="text-align: center">
+          <tr>
+            <th style="font-weight: bold">
+              <a class="column-link" href="#" data-column="alumno" data-direction="{% if sort == 'alumno' %}{{ direction }}{% else %}asc{% endif %}">
+                Alumno
+              </a>
+            </th>
+            <th style="font-weight: bold">
+              <a class="column-link" href="#" data-column="clases" data-direction="{% if sort == 'clases' %}{{ direction }}{% else %}asc{% endif %}">
+                Clases
+              </a>
+            </th>
+            <th style="font-weight: bold">
+              <a class="column-link" href="#" data-column="faltas" data-direction="{% if sort == 'faltas' %}{{ direction }}{% else %}asc{% endif %}">
+                Faltas
+              </a>
+            </th>
+            <th style="font-weight: bold">
+              <a class="column-link" href="#" data-column="calificacion" data-direction="{% if sort == 'calificacion' %}{{ direction }}{% else %}asc{% endif %}">
+                Calificación
+              </a>
+            </th>
+            <th style="font-weight: bold">Editar</th>
+          </tr>
+        </thead>
+        
+        
+        
+        
+        
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td> {{ item.alumno.apellido }}, {{ item.alumno.nombre }}</td>
+              {% comment %} <td>{{item.id_materia.materia}}</td> {% endcomment %}
+              <td style="text-align: center">{{item.clase.id_materia}}</td>
+              
+              <td style="text-align: center">{{ item.faltas }}</td>
+              <td style="text-align: center">{{ item.calificacion }}</td>
+              <td style="text-align: center">
+                <a href="{% url 'editaform' registro.id %}" class="btn btn-outline-primary" title="Editar Registro">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+              </td>
+              {% comment %} <td>{{ item.id_materia }}</td> {% endcomment %}
+            </tr>
+          {% endfor %}
+        </tbody>
+        
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  .column-link {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
+<script>
+  $(document).ready(function() {
+    $('.column-link').on('click', function(e) {
+      e.preventDefault();
+  
+      var column = $(this).attr('data-column');
+      var direction = $(this).attr('data-direction');
+      var currentDirection = direction === 'asc' ? 'desc' : 'asc';
+  
+      // Obtener la URL actual sin los parámetros de ordenamiento
+      var url = window.location.href;
+      url = removeURLParameter(url, 'sort');
+      url = removeURLParameter(url, 'direction');
+  
+      // Establecer la dirección predeterminada si no se proporciona un parámetro de dirección válido
+      if (direction !== 'asc' && direction !== 'desc') {
+        currentDirection = 'asc';
+      }
+  
+      // Construir la URL de redirección con los nuevos parámetros de ordenamiento
+      var separator = url.indexOf('?') !== -1 ? '&' : '?';
+      url = url + separator + 'sort=' + column + '&direction=' + currentDirection;
+  
+      // Redireccionar a la nueva URL
+      window.location.href = url;
+    });
+  
+    function removeURLParameter(url, parameter) {
+      var urlparts = url.split('?');
+  
+      if (urlparts.length >= 2) {
+        var prefix = encodeURIComponent(parameter) + '=';
+        var pars = urlparts[1].split(/[&;]/g);
+  
+        for (var i = pars.length; i-- > 0;) {
+          if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+            pars.splice(i, 1);
+          }
+        }
+  
+        url = urlparts[0] + '?' + pars.join('&');
+      }
+  
+      return url;
+    }
+  });
+  
+  
+  </script>
+  
+  
+  
+{% endblock %}

@@ -1,0 +1,48 @@
+
+{% extends 'layout2.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Iniciar sesión</h2>
+            {% if form.errors %}
+            <p>Nombre de usuario y/o contraseña incorrectos.</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            </form>
+            <p><a href="{% url 'email_reseteo_2:resetear_password' %}">¿Olvidó su contraseña?</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'layout2.html' %}
+
+
+
+{% block body %}
+<div class="col-md-6 mx-auto">
+    <h2>Iniciar sesión</h2>
+    {% if form.errors %}
+    <p>Nombre de usuario y/o contraseña incorrectos.</p>
+    {% endif %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Iniciar sesión</button>
+    </form>
+    <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+</div>
+{% endblock %} {% endcomment %}
+

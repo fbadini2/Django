@@ -52,7 +52,7 @@ def profesores(request):
     if request.method == 'GET':
         form = Profesorform()
     else:
-        form = Profesorform(request.POST)
+        form = Profesorform(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/profesores')
@@ -65,10 +65,13 @@ def profesoredit(request, id):
     if request.method == 'GET':
         form = Profesorform(instance = profesor)
     else:
-        form = Profesorform(request.POST, instance = profesor)
+        form = Profesorform(request.POST,request.FILES, instance = profesor)
         if form.is_valid():
             form.save()
             return redirect('/profesores')
+    if form.instance.foto:
+        form.instance.foto = form.instance.foto.decode('utf-8')
+
     return render(request, "profesores.html", {'profesores':profesores, 'form':form})
 
 def aulas(request):
@@ -130,3 +133,104 @@ def informes(request):
 
 def index(request):
     return render(request, "nosotros.html")
+
+#######################################################################################################
+
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Alumno, Clase, AlumnoClase
+from .forms import Alumnoform, Claseform, AlumnoClaseForm
+
+def formulario_view(request):
+    alumnos = Alumno.objects.all()
+    clases = Clase.objects.all()
+    alumno_clases = AlumnoClase.objects.all()
+
+    # Obtener el parámetro de ordenamiento desde la URL
+    sort_param = request.GET.get('sort')
+    direction_param = request.GET.get('direction')
+    default_direction = 'asc'
+    if direction_param and direction_param.lower() == 'desc': 
+        default_direction = 'desc'
+
+    # Ordenar los registros
+    if sort_param:
+        if sort_param == 'alumno':
+            alumno_clases = alumno_clases.order_by(f'alumno__apellido', f'alumno__nombre')
+        elif sort_param == 'clases':
+            alumno_clases = alumno_clases.order_by('clase__clase')
+        elif sort_param == 'faltas':
+            alumno_clases = alumno_clases.order_by('faltas')
+        elif sort_param == 'calificacion':
+            alumno_clases = alumno_clases.order_by('calificacion')
+
+        # Invertir el orden si la dirección es descendente
+        if default_direction == 'desc':
+            alumno_clases = alumno_clases.reverse()
+    
+    if request.method == 'POST':
+        alumno_id = request.POST.get('alumno')
+        clase_ids = request.POST.getlist('clases')
+        faltas = int(request.POST.get('faltas'))
+        calificacion = int(request.POST.get('calificacion'))
+        #materia_id = request.POST.get('materia')
+        
+        alumno = Alumno.objects.get(id_alumno=alumno_id)
+        
+        for clase_id in clase_ids:
+            clase = Clase.objects.get(id_clase=clase_id)
+            #materia = Materia.objects.get(id_materia=materia_id)
+            AlumnoClase.objects.create(
+                alumno=alumno, 
+                clase=clase,
+                #materia =materia,
+                faltas=faltas,
+                calificacion=calificacion
+            )
+        
+        
+        
+        return redirect('formulario')  
+        
+    context = {
+        'alumnos': alumnos,
+        'clases': clases,
+        'items': alumno_clases,
+        'direction': request.GET.get('direction')  # Pasar el parámetro 'direction' al contexto
+    }
+    
+    return render(request, 'formulario.html', context)
+
+
+
+def materiasedit(request, id):
+    items = Materia.objects.all().order_by('id_materia')[:7]
+    materia = Materia.objects.get(id_materia = id)
+    if request.method == 'GET':
+        form = Materiaform(instance = materia)
+    else:
+        form = Materiaform(request.POST, instance = materia)
+        if form.is_valid():
+            form.save()
+            return redirect('/materias')
+    return render(request, "materias.html", {'items':items, 'form':form})
+
+def editar_formulario(request, registro_id):
+    registro = get_object_or_404(AlumnoClase, id=registro_id)
+    alumnos = Alumno.objects.all()
+    clases = Clase.objects.all()
+
+    if request.method == 'POST':
+        form = AlumnoClaseForm(request.POST, instance=registro)
+        if form.is_valid():
+            form.save()
+            return redirect('/formulario')
+    else:
+        form = AlumnoClaseForm(instance=registro)
+    
+    context = {
+        'alumnos': alumnos,
+        'clases': clases,
+        'form': form
+    }
+    
+    return render(request, 'formulario.html', context)

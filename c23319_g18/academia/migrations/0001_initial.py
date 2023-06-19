@@ -62,6 +62,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id_materia', models.AutoField(primary_key=True, serialize=False)),
                 ('materia', models.CharField(blank=True, max_length=35, null=True)),
+                ('carrera', models.CharField(blank=True, max_length=35, null=True)),
+                ('anio', models.CharField(blank=True, max_length=15, null=True)),
+                ('cuatrimestre', models.CharField(blank=True, max_length=15, null=True)),
             ],
             options={
                 'db_table': 'materia',

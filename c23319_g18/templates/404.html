@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootswatch Sandstone 404 Error Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/sandstone/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .error-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .error-content {
+            text-align: center;
+        }
+        .error-title {
+            font-size: 6rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            font-size: 2rem;
+            color: #dc3545;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-title">404</h1>
+            <p class="error-message"> <span class="text-danger">Opps!</span> Pagina no encontrada.</p>
+            <p class="lead">
+                La pagina que buscas no existe, o no te encuentras logeado al sistema.
+            </p>
+            <a href="login/" class="btn btn-primary">Volver a Inicio</a>
+        </div>
+    </div>
+</body>
+
+</html>

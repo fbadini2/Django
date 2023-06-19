@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('informes', views.informes, name='informes'),
@@ -13,4 +15,9 @@ urlpatterns = [
     path('materias', views.materias, name='materias'),
     path('editm/<int:id>', views.materiasedit, name='editm'),
     path('calificaciones', views.calificaciones, name='calificaciones'),
-]
+
+
+    ########################################################################
+     path('formulario/', views.formulario_view, name='formulario'),
+     path('editaform/<int:registro_id>', views.editar_formulario, name='editaform'),
+]  

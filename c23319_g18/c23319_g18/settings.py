@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+from dotenv import load_dotenv
 
 env = environ.Env()
 environ.Env.read_env()
@@ -43,7 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'academia',
-    'widget_tweaks'
+    'widget_tweaks',
+    'gestion_usuarios',
+    'email_reseteo_2',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -61,7 +66,7 @@ ROOT_URLCONF = 'c23319_g18.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,14 +97,25 @@ WSGI_APPLICATION = 'c23319_g18.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#        'default': {
+#            'ENGINE': 'django.db.backends.mysql',
+#            'OPTIONS': {
+#                'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
+#            }
+#        }
+#    }
+
 DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.mysql',
-          'OPTIONS': {
-              'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
-          }
-      }
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'academia',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -149,3 +165,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
+
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = 'academia:index'
+LOGOUT_REDIRECT_URL = '/'
+
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Configuración de SMTP
+load_dotenv()
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' #smtp.mail.yahoo.com'#'smtp-relay.sendinblue.com'#
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # aqui deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # aquí deberás agregar la contraseña de tu cuenta de Gmail o, si usas la autenticación de aplicaciones, la clave generada para tu aplicación
+
+# Configuración del remitente predeterminado
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') # aquí deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
