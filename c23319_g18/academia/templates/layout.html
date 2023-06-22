@@ -1,79 +1,122 @@
-{% load static %} 
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <title>{% block title %} {% endblock %}</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS v5.2.1 -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/sandstone/bootstrap.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <header>
-        <!-- place navbar here -->
-        <nav class="navbar navbar-expand navbar-light bg-light">
+
+
+        <nav class="navbar navbar-expand-sm navbar-light bg-light justify-content-end">
             <ul class="nav navbar-nav">
                 <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                    <i class="fa-solid fa-graduation-cap"></i>
+                  <i class="fa-solid fa-graduation-cap"></i>
                 </a>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">Gestión Academica</a>
+                  <a
+                    class="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Gestión Academica</a
+                  >
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'alumnos' %}">Alumnos</a>
+                    <a class="dropdown-item" href="{% url 'profesores' %}"
+                      >Profesores</a
+                    >
+                    <a class="dropdown-item" href="{% url 'materias' %}"
+                      >Materias</a
+                    >
+                    <a class="dropdown-item" href="{% url 'aulas' %}">Aulas</a>
+                    <a class="dropdown-item" href="{% url 'formulario' %}"
+                      >Registro</a
+                    >
+                  </div>
+                </li>
+              </ul>
+            <button class="btn btn-outline-primary ml-auto"> <i class="bi bi-person-lock"></i>  {{ user.first_name }} {{ user.last_name }}</button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                <ul class="nav navbar-nav">
+                <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      role="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      >Configuración</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'alumnos' %}">Alumnos</a>
-                        <a class="dropdown-item" href="{% url 'profesores' %}">Profesores</a>
-                        <a class="dropdown-item" href="{% url 'materias' %}">Materias</a>
-                        <a class="dropdown-item" href="{% url 'aulas' %}">Aulas</a>
-                        <a class="dropdown-item" href="{% url 'formulario' %}">Registro</a>
+                      <a class="dropdown-item" href="{% url 'gestion_usuarios:cambiar_password' %}">Cambiar Contraseña</a>
+                      <a class="dropdown-item" href="{% url 'admin:index' %}">Administracion</a>
+                      <a class="dropdown-item" href="{% url 'gestion_usuarios:logout' %}">Log Out</a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'informes' %}">Informes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gestion_usuarios:cambiar_password' %}">Cambiar Contraseña</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:index' %}">Administracion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gestion_usuarios:logout' %}">Log Out</a>
-                </li>
-            </ul>
+                  </li>
+                </ul>
+                <ul class="navbar-nav text-right">
+                    <li class="nav-item active">
+                        <a
+                        href="{% url 'gestion_usuarios:logout' %}"
+                        class="nav-link"
+                        title="Cerrar sesión"
+                        ><i class="bi bi-box-arrow-up-right"></i></a>
+                    </li>
+                </ul>
+            </div>
         </nav>
+
     </header>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                {% block body %} {% endblock %}
-            </div>
-        </div>
+      <div class="row">
+        <div class="col-12">{% block body %} {% endblock %}</div>
+      </div>
     </div>
     <footer>
-        <!-- place footer here -->
+      <!-- place footer here -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
-    <script src="https://kit.fontawesome.com/c4476a7d86.js" crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/c4476a7d86.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

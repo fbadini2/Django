@@ -1,48 +1,60 @@
-
-{% extends 'layout2.html' %}
-
-{% block body %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2>Iniciar sesión</h2>
-            {% if form.errors %}
-            <p>Nombre de usuario y/o contraseña incorrectos.</p>
-            {% endif %}
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.username.label_tag }}
-                    {{ form.username }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label_tag }}
-                    {{ form.password }}
-                </div>
-                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-            </form>
-            <p><a href="{% url 'email_reseteo_2:resetear_password' %}">¿Olvidó su contraseña?</a></p>
+{% extends 'layout2.html' %} {% load static %} {% load widget_tweaks %} {% block body %}
+<body style="background-image: url('{%static 'images/school-design.jpg' %}');">
+<div class="container-fluid py-5">
+  <div class="row justify-content-center">
+    <div class="card bg-light">
+        
+      <div class="card-body">
+        <h2><i class="fa-solid fa-graduation-cap"></i> SIGA - Inicio de sesión</h2>
+        
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
+          <strong>Usuario y/o contraseña incorrectos.</strong>
         </div>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="username"
+              ><strong>{{ form.username.label_tag }}</strong></label
+            >
+            {% render_field form.username class="form-control" %}
+          </div>
+          <div class="form-group">
+            <label for="username"
+              ><strong>{{ form.password.label_tag }}</strong></label
+            >
+            {% render_field form.password class="form-control" %}
+          </div>
+          <div class="row justify-content-center">
+            <button type="submit" class="btn btn-lg btn-primary">
+              <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+            </button>
+          </div>
+        </form>
+        <p class="py-2">
+          <a href="{% url 'email_reseteo_2:resetear_password' %}"
+            >¿Olvidó su contraseña?</a
+          >
+        </p>
+      </div>
     </div>
+  </div>
 </div>
-{% endblock %}
-
-{% comment %} {% extends 'layout2.html' %}
-
-
-
-{% block body %}
+{% endblock %} {% comment %} {% extends 'layout2.html' %} {% block body %}
 <div class="col-md-6 mx-auto">
-    <h2>Iniciar sesión</h2>
-    {% if form.errors %}
-    <p>Nombre de usuario y/o contraseña incorrectos.</p>
-    {% endif %}
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+  <h2>S.I.G.A. - Inicio de sesión</h2>
+  {% if form.errors %}
+  <div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
+    <strong>Usuario y/o contraseña incorrectos.</strong>
+  </div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
     <button type="submit">Iniciar sesión</button>
-    </form>
-    <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+  </form>
+  <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
 </div>
 {% endblock %} {% endcomment %}
-

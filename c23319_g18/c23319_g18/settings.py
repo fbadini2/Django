@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 env = environ.Env()
 environ.Env.read_env()
@@ -97,25 +97,25 @@ WSGI_APPLICATION = 'c23319_g18.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.mysql',
-#            'OPTIONS': {
-#                'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
-#            }
-#        }
-#    }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'academia',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+       'default': {
+           'ENGINE': 'django.db.backends.mysql',
+           'OPTIONS': {
+               'read_default_file': os.path.join(BASE_DIR, 'str_connection.cnf'),
+           }
+       }
+   }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'academia',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -167,21 +167,21 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 LOGIN_URL = 'login/'
-LOGIN_REDIRECT_URL = 'academia:index'
+LOGIN_REDIRECT_URL = 'academia/informes'
 LOGOUT_REDIRECT_URL = '/'
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Configuración de SMTP
-load_dotenv()
+# load_dotenv()
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' #smtp.mail.yahoo.com'#'smtp-relay.sendinblue.com'#
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # aqui deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # aquí deberás agregar la contraseña de tu cuenta de Gmail o, si usas la autenticación de aplicaciones, la clave generada para tu aplicación
+EMAIL_HOST_USER = 'siga23319@gmail.com' #os.getenv('EMAIL_HOST_USER')  # aqui deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
+EMAIL_HOST_PASSWORD = 'pvbwakwnlsyrcyfx' #os.getenv('EMAIL_HOST_PASSWORD') # aquí deberás agregar la contraseña de tu cuenta de Gmail o, si usas la autenticación de aplicaciones, la clave generada para tu aplicación
 
-# Configuración del remitente predeterminado
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') # aquí deberás agregar la dirección de correo electrónico de tu cuenta de Gmail
+# Configuración del remitente predeterminado 
+DEFAULT_FROM_EMAIL = 'siga23319@gmail.com' # aquí deberás agregar la dirección de correo electrónico de tu cuenta de Gmail

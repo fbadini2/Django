@@ -7,7 +7,7 @@
         <div accion="" class="col-md-8">
           <div class="card bg-light border-warning">
             <div class="card-body">
-          <form method="POST" enctype="multipart/form-data">
+          <form name="alumnoform" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-group">
@@ -20,7 +20,7 @@
                 />
                 {% else %}
                 {% if form.foto %}
-                <img class="img-perfil-profesor" src ='/media/{{ form.foto.value }}' alt="foto del profe">
+                <img class="img-perfil-profesor" src ='/media/{{ form.foto.value }}' alt="foto del profesor">
                 {% endif %}
                 {% endif %}
               </div>
@@ -75,12 +75,34 @@
             </div>
           </div>
 
-            {{ form.foto }}
+          <div class="row justify-content-end">
+            <div class="col-md-10">
+              {{ form.foto }}
+            </div>
+            <div class="col-md-2">
+              {% if country.bandera != NULL %}
+              <img class="img-fluid float-md-end" src ='/media/{{ country.bandera }}' alt="bandera">
+              {% endif %}
+            </div>
+          </div>
 
-              <div class="form-group" style="padding-top: 1rem;">
-                <div class="form-row justify-content-center">
-                  <button type="submit" class="btn btn-lg btn-success"><i class="bi bi-check-circle"></i>
+          
+
+              <div class="form-group" style="padding-top: 1px;">
+                <div class="row justify-content-center">
+                  <div class="col-md-3">
+                    <button
+                      type="reset"
+                      onclick="window.location.href='/profesores/'"
+                      class="btn btn-lg btn-danger mx-auto d-block"
+                    title="Cancelar">
+                      <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                  </div>
+                  <div class="col-md-3">
+                  <button type="submit" class="btn btn-lg btn-success mx-auto d-block"><i class="bi bi-check-circle"></i>
                     Guardar</button>
+                  </div>
                 </div>
               </div>
 

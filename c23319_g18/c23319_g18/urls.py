@@ -18,8 +18,8 @@ urlpatterns = [
     path('gestion_usuarios/login/', LoginView.as_view(), name='login'),
     path('', include("academia.urls")),
     path('email_reseteo_2/', include('email_reseteo_2.urls')),
-    
     path('admin/', admin.site.urls,name='admin'),
+    path('gestion_usuarios/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

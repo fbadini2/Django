@@ -1,5 +1,5 @@
 [client]
 database = academia
-user = 
-password = 
+user = root
+password = #171Nolaadi
 default-character-set = utf8

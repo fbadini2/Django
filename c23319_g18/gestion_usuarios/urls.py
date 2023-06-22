@@ -7,7 +7,6 @@ app_name = 'gestion_usuarios'
 
 urlpatterns = [
     
-    # path('registro/', RegistroUsuarioView.as_view(), name='registro'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('cambiar_password/', CambiarPasswordView.as_view(), name='cambiar_password'),

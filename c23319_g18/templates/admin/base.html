@@ -20,7 +20,7 @@
     {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
-<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" />
+<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" />
 </head>
 {% load i18n %}
 
@@ -32,10 +32,9 @@
 
     {% if not is_popup %}
     <!-- Header -->
-    <div id="header" style = "background:#2FA4E7">
+    <div id="header">
         <div id="branding">
         {% block branding %}{% endblock %}
-        <h1>Modificando el archivo template base</h1>
         </div>
         {% block usertools %}
         {% if has_permission %}

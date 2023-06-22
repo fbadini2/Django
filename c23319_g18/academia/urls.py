@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('academia/', views.index, name='index'),
     path('informes', views.informes, name='informes'),
     path('alumnos/', views.alumnos, name='alumnos'),
     path('edita/<int:id>', views.alumnoedit, name='edita'),
@@ -14,10 +14,6 @@ urlpatterns = [
     path('editau/<int:id>', views.aulasedit, name='editau'),
     path('materias', views.materias, name='materias'),
     path('editm/<int:id>', views.materiasedit, name='editm'),
-    path('calificaciones', views.calificaciones, name='calificaciones'),
-
-
-    ########################################################################
-     path('formulario/', views.formulario_view, name='formulario'),
-     path('editaform/<int:id>', views.editar_formulario, name='editaform'),
+    path('formulario/', views.formulario_view, name='formulario'),
+    path('editaform/<int:id>', views.editar_formulario, name='editaform'),
 ]  

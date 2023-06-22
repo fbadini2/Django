@@ -1,5 +1,5 @@
 from django import forms
-from .models import Alumno, Profesor, Materia, Clase
+from .models import Alumno, Profesor, Materia, Clase, AlumnoClase
 
 class Alumnoform(forms.ModelForm):
     class Meta:
@@ -32,11 +32,6 @@ class Claseform(forms.ModelForm):
                 'required':'No te olvides de mi!'
             }
         }  
-
-##########################################################3
-
-from django import forms
-from .models import Alumno, Clase, AlumnoClase
 
 class AlumnoClaseForm(forms.ModelForm):
     alumno = forms.ModelChoiceField(queryset=Alumno.objects.all())

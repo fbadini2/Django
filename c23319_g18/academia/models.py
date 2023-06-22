@@ -1,10 +1,4 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
+
 from django.db import models
 from django import forms
 
@@ -21,13 +15,15 @@ class Alumno(models.Model):
     nro_tel = models.CharField(max_length=75)
     correo = models.CharField(max_length=100)
     fec_inicio = models.CharField(max_length=10)
-    activo = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     clases = models.ManyToManyField('Clase', through='AlumnoClase')
+    activo = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     
     class Meta:
         managed = False
         db_table = 'alumno'
 
+    def __str__(self):
+        return str(self.nombre + ' ' + self.apellido)
 
 
 class Clase(models.Model):
@@ -56,7 +52,7 @@ class Materia(models.Model):
         db_table = 'materia'
     
     def __str__(self):
-        return str(self.materia + ' - (' + self.carrera + ')')
+        return str(self.materia)
 
 
 class Pais(models.Model):
@@ -82,8 +78,8 @@ class Profesor(models.Model):
     nro_doc = models.CharField(max_length=15)
     foto = models.ImageField(upload_to='images/profesores', null=True)
     fec_nacimiento = models.CharField(max_length=10)
-    id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia')
-    id_pais = models.ForeignKey(Pais, models.DO_NOTHING, db_column='id_pais')
+    id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia', default=1)
+    id_pais = models.ForeignKey(Pais, models.DO_NOTHING, db_column='id_pais', default=1)
     nro_tel = models.CharField(max_length=75)
     correo = models.CharField(max_length=100)
     fec_inicio = models.CharField(max_length=10)
@@ -110,19 +106,11 @@ class Provincia(models.Model):
         return str(self.desc_provincia)
 
 
-#################################################################################
-
-from django.core.exceptions import ValidationError
-def validar_calificacion(value):
-    if value < 1 or value > 10:
-        raise ValidationError('La calificación debe estar entre 1 y 10.')
-
 class AlumnoClase(models.Model):
     alumno = models.ForeignKey(Alumno, models.DO_NOTHING, db_column='id_alumno')
     clase = models.ForeignKey(Clase, models.DO_NOTHING, db_column='id_clase')
-    #materia =  models.ForeignKey(Materia, models.DO_NOTHING, db_column='id_materia')
     faltas = models.IntegerField()
-    calificacion = models.IntegerField(blank=True, null=True, validators=[validar_calificacion])
+    calificacion = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
