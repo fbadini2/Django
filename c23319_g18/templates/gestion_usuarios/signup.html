@@ -1,0 +1,79 @@
+{% extends 'layout2.html' %} {% load static %} {% load widget_tweaks %} {% block body %}
+<body style="background-image: url('{%static 'images/school-design.jpg' %}')">
+  <div class="container-fluid py-5">
+    <div class="row justify-content-center">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h2>
+            <i class="fa-solid fa-graduation-cap"></i> SIGA - Registro de
+            Usuario
+          </h2>
+
+          <!-- {% for error in field.errors %}
+            {{ error }}
+          {% endfor %} -->
+          
+          <!-- {% for message in messages %}
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
+            <strong>{{ menssage }}</strong>
+          </div>
+          {% endfor %} -->
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username"
+                ><strong>{{ form.username.label_tag }}</strong></label
+              >
+              {% render_field form.username class="form-control" %}
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="first_name"
+                  ><strong>{{ form.first_name.label_tag }}</strong></label
+                >
+                {% render_field form.first_name class="form-control" %}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="last_name"
+                  ><strong>{{ form.last_name.label_tag }}</strong></label
+                >
+                {% render_field form.last_name class="form-control" %}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email"
+                ><strong>{{ form.email.label_tag }}</strong></label
+              >
+              {% render_field form.email class="form-control" %}
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password1"
+                  ><strong>{{ form.password1.label_tag }}</strong></label
+                >
+                {% render_field form.password1 class="form-control" %}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="password2"
+                  ><strong>{{ form.password2.label_tag }}</strong></label
+                >
+                {% render_field form.password2 class="form-control" %}
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <button type="submit" class="btn btn-lg btn-primary">
+                <i class="bi bi-person-plus-fill"></i> Crear cuenta
+              </button>
+            </div>
+          </form>
+          <p class="py-2">
+            ¿Ya estás registrado?
+            <a href="{% url 'gestion_usuarios:login' %}">Ingresar</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
