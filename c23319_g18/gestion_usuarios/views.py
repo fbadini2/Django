@@ -1,40 +1,56 @@
+from typing import Any
 from django.shortcuts import render
 
 # Create your views here.
+from django import forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, View
 from django.views.generic.base import TemplateView
-from .forms import  CustomSetPasswordForm, CustomAuthenticationForm, CustomCambiarPasswordForm
+from .forms import  CustomSetPasswordForm, CustomAuthenticationForm, CustomCambiarPasswordForm, SignUpForm
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.contrib.auth import password_validation, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
 
 
-
-# class RegistroUsuarioView(CreateView):
-#     form_class = RegistroUsuarioForm
-#     template_name = 'gestion_usuarios/registro_usuario.html'
-#     success_url = reverse_lazy('login')
-
-#     def form_valid(self, form):
-#         response = super().form_valid(form)
-#         username = form.cleaned_data.get('email')
-#         password = form.cleaned_data.get('password1')
-#         user = authenticate(self.request, username=username, password=password)
-#         login(self.request, user)
-#         return response
-
+def signup(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            form.save()
+            messages.success(request, 'Registro exitoso para ' + username)
+            # new_user = authenticate(username=username, password=password)
+            # if new_user is not None:
+            #     login(request, new_user)
+            return redirect('login')
+    return render(request, 'gestion_usuarios/signup.html',{'form':form})
 
 class LoginView(FormView):
     template_name = 'gestion_usuarios/login.html'
     form_class = CustomAuthenticationForm
     success_url = reverse_lazy('index')
 
-
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return super(LoginView,self).dispatch(request, *args, **kwargs)
+        
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
@@ -43,7 +59,7 @@ class LoginView(FormView):
             login(self.request, user)
             return super().form_valid(form)
         else:
-            messages.error(self.request, 'El usuario o la contraseña son incorrectos')
+            messages.error(self.request, 'La combinación de usuario y contraseña no coinciden')
             return super().form_invalid(form)
 
 @method_decorator(login_required, name='dispatch')

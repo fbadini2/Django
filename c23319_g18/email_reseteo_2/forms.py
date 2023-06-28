@@ -22,3 +22,4 @@ class MySetPasswordForm(SetPasswordForm):
         model = User
         fields = ['new_password1', 'new_password2']
 
+

@@ -5,7 +5,6 @@ class Alumnoform(forms.ModelForm):
     class Meta:
         model = Alumno
         fields = ('nombre', 'apellido', 'nro_doc', 'nro_tel', 'correo', 'id_provincia', 'id_pais', 'fec_nacimiento', 'foto', 'fec_inicio', 'activo')
-        # fields = '__all__'
 
  
 class Profesorform(forms.ModelForm):

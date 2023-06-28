@@ -46,9 +46,7 @@ INSTALLED_APPS = [
     'academia',
     'widget_tweaks',
     'gestion_usuarios',
-    'email_reseteo_2',
-    
-    
+    'email_reseteo_2',    
 ]
 
 MIDDLEWARE = [

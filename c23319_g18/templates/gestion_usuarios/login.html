@@ -6,13 +6,23 @@
         
       <div class="card-body">
         <h2><i class="fa-solid fa-graduation-cap"></i> SIGA - Inicio de sesión</h2>
-        
+
         {% if form.errors %}
         <div class="alert alert-danger alert-dismissable">
           <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
-          <strong>Usuario y/o contraseña incorrectos.</strong>
+          <strong>El usuario y/o la contraseña son incorrectos.</strong>
         </div>
         {% endif %}
+
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>{{message}}</strong> Inicie sesión
+        </div>
+        {% endfor %}
+       
         <form method="post">
           {% csrf_token %}
           <div class="form-group">
@@ -35,9 +45,15 @@
         </form>
         <p class="py-2">
           <a href="{% url 'email_reseteo_2:resetear_password' %}"
-            >¿Olvidó su contraseña?</a
+            >¿Olvidaste tu contraseña?</a
           >
         </p>
+        <p class="">¿Todavía no creaste tu cuenta?
+          <a href="{% url 'gestion_usuarios:signup' %}"
+            >Registrate</a
+          >
+        </p>
+
       </div>
     </div>
   </div>

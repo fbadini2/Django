@@ -38,6 +38,9 @@ class Clase(models.Model):
     class Meta:
         managed = False
         db_table = 'clase'
+    
+    def __str__(self):
+        return str(self.clase)
 
 
 class Materia(models.Model):
@@ -115,4 +118,8 @@ class AlumnoClase(models.Model):
     class Meta:
         managed = False
         db_table = 'alumno_clase'
+    
+    def __str__(self):
+        return str(self.alumno )
+
 
